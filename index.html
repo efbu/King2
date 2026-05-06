@@ -4,216 +4,615 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>♔ King</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lato:wght@300;400;700&display=swap');
-:root{--g:#1b4332;--g2:#081c10;--au:#d4a843;--au2:#f0c96a;--cr:#f2e8d5;--rd:#c0392b;--cbg:#fdfaf4;}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{
+  --felt:#1c6e3d;--felt-d:#0c3a1d;--felt-e:#061408;
+  --gold:#d4a843;--gold2:#f2cc6a;--gold3:#7a5010;
+  --cream:#f5ecd8;--red:#d42020;
+  --teal:#00d49a;--teal2:#009970;
+  --chip:#111;
+  --cw:52px;--ch:76px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 html,body{height:100%;overflow:hidden;}
-body{font-family:'Lato',sans-serif;background:radial-gradient(ellipse at 40% 30%,#1e5c38 0%,var(--g2) 75%);color:var(--cr);height:100dvh;display:flex;flex-direction:column;}
-.scr{display:none;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:24px 20px;gap:12px;overflow-y:auto;}
+body{font-family:'Nunito',sans-serif;color:var(--cream);background:var(--felt-e);height:100dvh;display:flex;flex-direction:column;}
+.table-bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 120% 80% at 50% 60%, #1f7040 0%, #0e3d1c 55%, #061408 100%);}
+.table-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 50%, rgba(255,255,255,.03) 0%, transparent 70%);}
+.scr{display:none;flex-direction:column;align-items:center;justify-content:center;position:fixed;inset:0;z-index:10;padding:18px 14px;gap:10px;overflow-y:auto;}
 .scr.on{display:flex;}
-h1{font-family:'Cinzel',serif;font-size:2.6rem;font-weight:900;color:var(--au);letter-spacing:6px;text-shadow:0 0 40px rgba(212,168,67,.4),2px 3px 0 #000;text-align:center;}
-.tag{font-size:.95rem;color:var(--au2);opacity:.6;font-style:italic;letter-spacing:1px;}
-.field{width:100%;max-width:300px;}
-.field label{display:block;font-size:.7rem;letter-spacing:2px;color:var(--au2);opacity:.65;margin-bottom:5px;text-transform:uppercase;}
-.field input{width:100%;padding:13px 15px;border-radius:8px;border:1px solid rgba(212,168,67,.3);background:rgba(0,0,0,.45);color:var(--cr);font-size:1.05rem;outline:none;transition:border-color .2s;}
-.field input:focus{border-color:var(--au);}
-.btn{width:100%;max-width:300px;padding:14px;border:none;border-radius:8px;cursor:pointer;font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;letter-spacing:1.5px;transition:transform .12s;text-transform:uppercase;}
-.btn:active{transform:scale(.97);}
-.btn-g{background:linear-gradient(135deg,#d4a843,#8b6420);color:#1a0d00;box-shadow:0 4px 18px rgba(212,168,67,.35);}
-.btn-s{background:rgba(255,255,255,.07);color:var(--cr);border:1px solid rgba(255,255,255,.18);}
-.btn:disabled{opacity:.35;pointer-events:none;}
-.sep{color:rgba(212,168,67,.35);font-size:.75rem;letter-spacing:3px;width:100%;max-width:300px;text-align:center;}
-.codebox{background:rgba(0,0,0,.55);border:2px solid var(--au);border-radius:12px;padding:16px 28px;text-align:center;width:100%;max-width:300px;}
-.codebox small{display:block;font-size:.62rem;letter-spacing:3px;color:var(--au2);opacity:.6;margin-bottom:6px;}
-.codebox .code{font-family:'Cinzel',serif;font-size:2.2rem;font-weight:900;color:var(--au);letter-spacing:12px;}
-.prow{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:10px 14px;width:100%;max-width:300px;transition:border-color .3s;}
-.prow.on{border-color:rgba(212,168,67,.4);}
-.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--au),#6b4810);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:.95rem;color:#000;flex-shrink:0;}
-.av.mt{background:rgba(255,255,255,.07);color:rgba(255,255,255,.2);}
-.pn{font-size:.95rem;}.mt .pn{color:rgba(255,255,255,.22);font-style:italic;}
-.bdg{margin-left:auto;font-size:.6rem;font-family:'Cinzel',serif;color:var(--au);background:rgba(212,168,67,.12);border:1px solid rgba(212,168,67,.3);border-radius:4px;padding:2px 7px;letter-spacing:1px;}
+#sh{background:radial-gradient(ellipse at 30% 20%, rgba(30,110,60,.6) 0%, transparent 50%),radial-gradient(ellipse at 70% 80%, rgba(10,50,20,.8) 0%, transparent 60%),#061408;}
+.logo-wrap{text-align:center;margin-bottom:6px;}
+.logo-crown{font-size:2.8rem;line-height:1;filter:drop-shadow(0 0 20px rgba(212,168,67,.6));}
+.logo-text{font-family:'Cinzel',serif;font-size:3rem;font-weight:900;color:var(--gold);letter-spacing:10px;text-shadow:0 0 40px rgba(212,168,67,.4),3px 3px 0 rgba(0,0,0,.8);display:block;line-height:1;}
+.logo-suits{font-size:1.3rem;letter-spacing:8px;opacity:.25;margin-top:6px;}
+.home-panel{background:rgba(0,0,0,.6);border:1px solid rgba(212,168,67,.2);border-radius:18px;padding:18px 16px;width:100%;max-width:310px;backdrop-filter:blur(20px);}
+.home-panel h3{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:3px;color:var(--gold2);opacity:.6;text-transform:uppercase;text-align:center;margin-bottom:12px;}
+.inp{width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(212,168,67,.2);background:rgba(255,255,255,.05);color:var(--cream);font-size:1rem;font-family:'Nunito',sans-serif;outline:none;transition:border-color .2s;margin-bottom:8px;}
+.inp:focus{border-color:rgba(212,168,67,.6);}
+.inp-code{text-transform:uppercase;letter-spacing:8px;text-align:center;font-size:1.3rem;}
+.btn{width:100%;padding:13px;border:none;border-radius:10px;cursor:pointer;font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:transform .12s,box-shadow .12s;margin-bottom:6px;}
+.btn:last-child{margin-bottom:0;}
+.btn:active{transform:scale(.96);}
+.btn-gold{background:linear-gradient(135deg,#d4a843 0%,#b8872a 60%,#7a5010 100%);color:#1a0d00;box-shadow:0 4px 20px rgba(212,168,67,.25),inset 0 1px 0 rgba(255,255,255,.3);}
+.btn-teal{background:linear-gradient(135deg,#00d49a 0%,#009970 100%);color:#003322;box-shadow:0 4px 20px rgba(0,212,154,.2);}
+.btn-ghost{background:rgba(255,255,255,.07);color:var(--cream);border:1px solid rgba(255,255,255,.15);}
+.btn:disabled{opacity:.3;pointer-events:none;}
+.sep-line{display:flex;align-items:center;gap:8px;width:100%;max-width:310px;color:rgba(212,168,67,.3);font-size:.65rem;letter-spacing:2px;}
+.sep-line::before,.sep-line::after{content:'';flex:1;height:1px;background:rgba(212,168,67,.15);}
+#slob{background:radial-gradient(ellipse at 50% 30%,#1a5c34 0%,#061408 70%);}
+.code-box{background:rgba(0,0,0,.7);border:2px solid rgba(212,168,67,.5);border-radius:14px;padding:12px 24px;text-align:center;width:100%;max-width:310px;}
+.code-box small{display:block;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:3px;color:var(--gold2);opacity:.5;margin-bottom:5px;}
+.code-box .code{font-family:'Cinzel',serif;font-size:2.4rem;font-weight:900;color:var(--gold);letter-spacing:14px;}
+.seat-row{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:9px 12px;width:100%;max-width:310px;transition:border-color .3s;}
+.seat-row.filled{border-color:rgba(0,212,154,.3);}
+.av{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:.9rem;}
+.av-human{background:linear-gradient(135deg,#00d49a,#005540);}
+.av-bot{background:linear-gradient(135deg,#5a7aff,#2030aa);}
+.av-empty{background:rgba(255,255,255,.06);color:rgba(255,255,255,.2);}
+.seat-name{font-size:.9rem;font-weight:600;flex:1;}
+.seat-name.empty{color:rgba(255,255,255,.2);font-style:italic;font-weight:400;}
+.badge{font-size:.55rem;font-family:'Cinzel',serif;padding:2px 7px;border-radius:4px;letter-spacing:1px;}
+.badge-you{background:rgba(0,212,154,.12);color:var(--teal);border:1px solid rgba(0,212,154,.3);}
+.badge-host{background:rgba(212,168,67,.12);color:var(--gold);border:1px solid rgba(212,168,67,.3);}
+.badge-bot{background:rgba(90,122,255,.12);color:#8fa0ff;border:1px solid rgba(90,122,255,.3);}
 #sg{padding:0;justify-content:flex-start;overflow:hidden;display:none;flex-direction:column;height:100dvh;}
 #sg.on{display:flex;}
-.tb{background:rgba(0,0,0,.7);backdrop-filter:blur(8px);border-bottom:1px solid rgba(212,168,67,.2);padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;z-index:20;}
-.tbs{display:flex;gap:5px;}
-.sc{background:rgba(0,0,0,.5);border:1px solid rgba(212,168,67,.22);border-radius:6px;padding:3px 7px;text-align:center;min-width:42px;}
-.sc.me{border-color:var(--au);background:rgba(212,168,67,.12);}
-.sc span{display:block;font-size:.55rem;color:var(--au2);letter-spacing:.5px;}
-.sc b{font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;}
-.b-pos{color:#4ade80;}.b-neg{color:#f87171;}
-.rt{font-family:'Cinzel',serif;font-size:.72rem;color:var(--au);text-align:center;letter-spacing:1px;}
-.tt{font-size:.62rem;color:var(--au2);text-align:right;white-space:nowrap;max-width:80px;overflow:hidden;text-overflow:ellipsis;}
-.ta{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;min-height:0;padding:8px 10px;}
-.banner{position:absolute;top:6px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);border:1px solid rgba(212,168,67,.4);border-radius:20px;padding:4px 14px;font-family:'Cinzel',serif;font-size:.72rem;color:var(--au);letter-spacing:1px;white-space:nowrap;z-index:5;}
-.pa{display:flex;gap:10px;align-items:flex-end;justify-content:center;flex-wrap:wrap;min-height:95px;}
-.ps{display:flex;flex-direction:column;align-items:center;gap:3px;}
-.ps .pslb{font-size:.58rem;color:var(--au2);font-family:'Cinzel',serif;letter-spacing:.5px;max-width:62px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.ps.win .pslb{color:#4ade80;}
-.card{width:52px;height:76px;background:var(--cbg);border-radius:7px;border:1px solid #ccc;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.55);cursor:pointer;position:relative;flex-shrink:0;transition:transform .15s,box-shadow .15s;}
-.card .cr{font-size:.72rem;font-weight:700;line-height:1;}
-.card .cs{font-size:1.1rem;line-height:1.1;}
-.card.r{color:var(--rd);}.card.bk{color:#111;}
-.card.sel{transform:translateY(-12px) scale(1.06);box-shadow:0 10px 25px rgba(212,168,67,.6),0 0 0 2px var(--au);}
-.card.dim{opacity:.38;cursor:not-allowed;}
-.card.tc{width:48px;height:70px;cursor:default;}
-.card.wn{box-shadow:0 0 0 3px #4ade80,0 4px 12px rgba(74,222,128,.4);}
-.ab{background:rgba(0,0,0,.6);border-top:1px solid rgba(255,255,255,.07);padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;}
-.am{font-size:.82rem;color:var(--au);font-family:'Cinzel',serif;letter-spacing:1px;flex:1;}
-.ab .btn{max-width:140px;padding:10px;font-size:.75rem;margin:0;}
-.ha{background:rgba(0,0,0,.55);border-top:1px solid rgba(212,168,67,.15);padding:8px 8px 12px;flex-shrink:0;}
-.hl{font-size:.6rem;letter-spacing:2px;color:var(--au2);opacity:.55;text-transform:uppercase;text-align:center;margin-bottom:6px;}
-.hc{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;}
-.hc .card{width:44px;height:63px;}
-.hc .card .cs{font-size:.95rem;}
-.ov{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:20px;}
+.topbar{background:rgba(0,0,0,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;padding:5px 8px;flex-shrink:0;z-index:30;gap:5px;}
+.chips{display:flex;gap:4px;flex:1;min-width:0;overflow:hidden;}
+.chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:4px 6px;text-align:center;min-width:0;flex:1;transition:border-color .3s,background .3s;}
+.chip.me{border-color:rgba(0,212,154,.4);background:rgba(0,212,154,.08);}
+.chip.cur{border-color:rgba(212,168,67,.5);background:rgba(212,168,67,.08);}
+.chip-name{display:block;font-size:.48rem;color:rgba(255,255,255,.4);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.chip-score{display:block;font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;}
+.chip-score.pos{color:#00e896;}.chip-score.neg{color:#ff6060;}
+.el-tag{font-family:'Cinzel',serif;font-size:.6rem;color:var(--gold);text-align:center;line-height:1.4;flex-shrink:0;white-space:nowrap;}
+.opps{display:flex;justify-content:space-around;align-items:flex-start;padding:4px 6px 2px;flex-shrink:0;gap:4px;background:rgba(0,0,0,.3);border-bottom:1px solid rgba(255,255,255,.04);}
+.opp{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;}
+.opp-top{display:flex;align-items:center;gap:4px;}
+.opp-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.65rem;font-weight:900;border:2px solid transparent;transition:border-color .3s;}
+.opp-av.human{background:linear-gradient(135deg,#00d49a,#005540);}
+.opp-av.bot{background:linear-gradient(135deg,#5a7aff,#2030aa);}
+.opp-av.active{border-color:var(--gold);box-shadow:0 0 8px rgba(212,168,67,.5);}
+.opp-info{display:flex;flex-direction:column;}
+.opp-n{font-size:.55rem;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55px;}
+.opp-s{font-family:'Cinzel',serif;font-size:.55rem;font-weight:700;}
+.opp-mini-cards{display:flex;margin-top:1px;}
+.mini-c{width:14px;height:20px;background:linear-gradient(160deg,#1a3a6e,#0c1e3a);border:1px solid rgba(255,255,255,.15);border-radius:2px;margin-right:-5px;flex-shrink:0;}
+.mini-c:last-child{margin-right:0;}
+.table-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;min-height:0;padding:4px 6px;}
+.gt-pill{position:absolute;top:4px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.8);border:1px solid rgba(212,168,67,.35);border-radius:20px;padding:3px 12px;font-family:'Cinzel',serif;font-size:.6rem;color:var(--gold);letter-spacing:1px;white-space:nowrap;z-index:5;}
+.played-area{display:flex;gap:8px;align-items:flex-end;justify-content:center;flex-wrap:wrap;min-height:88px;}
+.p-slot{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.p-name{font-size:.52rem;color:rgba(255,255,255,.45);font-family:'Cinzel',serif;max-width:54px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.p-name.win{color:var(--teal);}
+.gt-chooser{flex-shrink:0;background:rgba(0,0,0,.9);border-top:2px solid rgba(212,168,67,.25);padding:6px 8px 8px;overflow-y:auto;max-height:48vh;}
+.gt-chooser.hidden{display:none;}
+.gt-header{font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold);letter-spacing:2px;text-align:center;padding:3px 0 5px;text-transform:uppercase;}
+.gt-meta{font-size:.58rem;color:rgba(255,255,255,.35);text-align:center;margin-bottom:7px;}
+.gt-cols{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.gt-col-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;text-align:center;padding:3px 0 4px;text-transform:uppercase;border-radius:4px;}
+.gt-col-label.koz{color:#f0c96a;background:rgba(212,168,67,.1);}
+.gt-col-label.ceza{color:#ff8080;background:rgba(255,80,80,.08);}
+.gt-col{display:flex;flex-direction:column;gap:4px;}
+.gt-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:7px 6px 6px;text-align:center;cursor:pointer;transition:all .13s;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;gap:7px;}
+.gt-item:active{transform:scale(.95);}
+.gt-item.koz-item:active,.gt-item.koz-item.sel{border-color:var(--gold);background:rgba(212,168,67,.15);}
+.gt-item.ceza-item:active,.gt-item.ceza-item.sel{border-color:#ff8080;background:rgba(255,80,80,.12);}
+.gt-item.off{opacity:.2;pointer-events:none;}
+.gt-i{font-size:1.3rem;flex-shrink:0;line-height:1;width:24px;text-align:center;}
+.gt-txt{display:flex;flex-direction:column;align-items:flex-start;min-width:0;}
+.gt-n{font-size:.58rem;font-family:'Cinzel',serif;color:var(--cream);display:block;line-height:1.3;white-space:nowrap;}
+.gt-p{font-size:.48rem;display:block;margin-top:1px;}
+.koz-item .gt-p{color:rgba(240,200,100,.5);}
+.ceza-item .gt-p{color:rgba(255,130,130,.5);}
+.action-bar{background:rgba(0,0,0,.8);border-top:1px solid rgba(255,255,255,.06);padding:5px 10px;display:flex;align-items:center;gap:8px;flex-shrink:0;min-height:36px;}
+.act-msg{font-family:'Cinzel',serif;font-size:.68rem;color:var(--gold);letter-spacing:1px;flex:1;min-width:0;}
+.hand-area{background:rgba(0,0,0,.7);border-top:1px solid rgba(212,168,67,.12);padding:6px 4px 10px;flex-shrink:0;}
+.hand-lbl{font-size:.52rem;letter-spacing:2px;color:rgba(212,168,67,.4);text-transform:uppercase;text-align:center;margin-bottom:5px;}
+.hand-cards{display:flex;flex-wrap:nowrap;gap:3px;justify-content:center;overflow-x:auto;padding:2px 4px 2px;scrollbar-width:none;}
+.hand-cards::-webkit-scrollbar{display:none;}
+.hand-cards .card{width:52px;height:76px;flex-shrink:0;}
+.hand-cards .card .cr{font-size:.82rem;}
+.hand-cards .card .cs{font-size:1.15rem;}
+.suit-sep{width:7px;flex-shrink:0;}
+.card{width:var(--cw);height:var(--ch);background:linear-gradient(160deg,#fffef8 0%,#f5ead5 100%);border-radius:7px;border:1px solid rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.9);cursor:pointer;flex-shrink:0;position:relative;transition:transform .16s cubic-bezier(.34,1.56,.64,1),box-shadow .16s;}
+.cr{font-size:.72rem;font-weight:800;line-height:1;font-family:'Nunito',sans-serif;}
+.cs{font-size:1.1rem;line-height:1.1;}
+.card.red{color:#cc1111;}.card.black{color:#111;}
+.card.playable:active{transform:translateY(-16px) scale(1.1);box-shadow:0 16px 32px rgba(0,0,0,.8),0 0 0 3px var(--teal),0 0 20px rgba(0,212,154,.4);z-index:20;}
+.card.unplayable{opacity:.3;cursor:not-allowed;}
+.card.played-c{width:46px;height:68px;cursor:default;}
+.card.played-c.wn{box-shadow:0 0 0 3px var(--teal),0 4px 16px rgba(0,212,154,.5);}
+.card.back{background:linear-gradient(145deg,#1a3570,#0b1d40);border:2px solid rgba(100,140,255,.25);}
+.card.back::after{content:'';position:absolute;inset:4px;border-radius:4px;border:1px solid rgba(255,255,255,.1);background:repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.04) 3px,rgba(255,255,255,.04) 4px);}
+.ov{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.9);align-items:center;justify-content:center;padding:16px;}
 .ov.on{display:flex;}
-.mo{background:linear-gradient(150deg,#1a3d22,#0a1d10);border:1px solid var(--au);border-radius:14px;padding:22px 18px;width:100%;max-width:350px;text-align:center;max-height:90dvh;overflow-y:auto;}
-.mo h2{font-family:'Cinzel',serif;color:var(--au);font-size:1.25rem;margin-bottom:8px;}
-.mo p{font-size:.9rem;opacity:.75;margin-bottom:14px;}
-.gtg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0;}
-.gtb{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:10px 6px;color:var(--cr);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.3px;cursor:pointer;text-align:center;transition:all .15s;}
-.gtb:active,.gtb.sl{border-color:var(--au);background:rgba(212,168,67,.18);color:var(--au);}
-.gtb.ud{opacity:.28;pointer-events:none;}
-.gti{font-size:1.3rem;display:block;margin-bottom:3px;}
-.gtp{font-size:.55rem;opacity:.55;display:block;margin-top:2px;font-family:'Lato',sans-serif;}
-.sbt{width:100%;border-collapse:collapse;margin:8px 0;}
-.sbt th{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:1px;color:var(--au2);padding:5px 7px;border-bottom:1px solid rgba(212,168,67,.3);}
-.sbt td{padding:7px;text-align:center;font-size:.88rem;border-bottom:1px solid rgba(255,255,255,.04);}
-.sbt tr.me td{background:rgba(212,168,67,.06);}
-.toast{position:fixed;top:68px;left:50%;transform:translateX(-50%) translateY(-8px);background:rgba(10,10,10,.95);border:1px solid rgba(212,168,67,.5);border-radius:20px;padding:7px 18px;font-family:'Cinzel',serif;font-size:.75rem;color:var(--au);letter-spacing:1px;z-index:500;pointer-events:none;opacity:0;transition:opacity .25s,transform .25s;white-space:nowrap;}
+.modal{background:linear-gradient(160deg,#0d2d18,#060e08);border:1px solid rgba(212,168,67,.25);border-radius:16px;padding:20px 16px;width:100%;max-width:350px;max-height:90dvh;overflow-y:auto;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.9);}
+.modal h2{font-family:'Cinzel',serif;color:var(--gold);font-size:1.1rem;letter-spacing:2px;margin-bottom:6px;}
+.modal-sub{font-size:.75rem;color:rgba(255,255,255,.4);margin-bottom:12px;}
+.sct{width:100%;border-collapse:collapse;margin:8px 0;}
+.sct th{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:1px;color:var(--gold2);padding:5px 6px;border-bottom:1px solid rgba(212,168,67,.2);}
+.sct td{padding:6px;text-align:center;font-size:.8rem;border-bottom:1px solid rgba(255,255,255,.04);}
+.sct tr.me td{background:rgba(0,212,154,.06);}
+.tflash{display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;pointer-events:none;}
+.tflash.on{display:flex;}
+.tbox{background:rgba(0,0,0,.95);border:2px solid var(--teal);border-radius:14px;padding:16px 28px;text-align:center;animation:pop .22s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 40px rgba(0,212,154,.3);}
+@keyframes pop{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
+.tbox h3{font-family:'Cinzel',serif;color:rgba(255,255,255,.5);font-size:.7rem;margin-bottom:3px;}
+.tbox .tw{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:900;color:var(--teal);}
+.toast{position:fixed;top:58px;left:50%;transform:translateX(-50%) translateY(-6px);background:rgba(0,0,0,.97);border:1px solid rgba(212,168,67,.4);border-radius:20px;padding:6px 16px;font-family:'Cinzel',serif;font-size:.68rem;color:var(--gold);z-index:600;pointer-events:none;opacity:0;transition:all .2s;white-space:nowrap;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
-.tf{display:none;position:fixed;inset:0;z-index:200;align-items:center;justify-content:center;background:rgba(0,0,0,.6);}
-.tf.on{display:flex;}
-.tb2{background:linear-gradient(135deg,#1a3d22,#0a1d10);border:2px solid var(--au);border-radius:14px;padding:22px 30px;text-align:center;animation:pop .3s cubic-bezier(.34,1.56,.64,1);}
-@keyframes pop{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}
-.tb2 h3{font-family:'Cinzel',serif;color:var(--au2);font-size:.85rem;margin-bottom:4px;}
-.tb2 .tw{font-family:'Cinzel',serif;font-size:1.5rem;font-weight:900;color:#4ade80;}
 .dots::after{content:'';animation:dt 1.2s steps(4,end) infinite;}
 @keyframes dt{0%,100%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
-.cd{position:fixed;bottom:6px;right:8px;font-size:.58rem;color:rgba(255,255,255,.25);z-index:50;}
-.cd.ok{color:rgba(74,222,128,.45);}
+.conn{position:fixed;bottom:4px;right:6px;font-size:.5rem;color:rgba(255,255,255,.15);z-index:5;}
+.conn.ok{color:rgba(0,212,154,.35);}
 </style>
 </head>
 <body>
+<div class="table-bg"></div>
 <div id="sh" class="scr on">
-  <h1>♔ KING</h1>
-  <p class="tag">4 Kişilik Türk İskambil Oyunu</p>
-  <div class="field"><label>Adın</label><input id="iname" type="text" placeholder="İsmin" maxlength="12" autocomplete="off"></div>
-  <button class="btn btn-g" onclick="doCreate()">Yeni Oda Oluştur</button>
-  <div class="sep">— veya —</div>
-  <div class="field"><label>Oda Kodu</label><input id="icode" type="text" placeholder="XXXX" maxlength="4" style="text-transform:uppercase;letter-spacing:6px;text-align:center;font-size:1.4rem"></div>
-  <button class="btn btn-s" onclick="doJoin()">Odaya Katıl</button>
+  <div class="logo-wrap">
+    <div class="logo-crown">♔</div>
+    <span class="logo-text">KING</span>
+    <div class="logo-suits">♠ ♥ ♦ ♣</div>
+  </div>
+  <div class="home-panel">
+    <h3>Oyna</h3>
+    <input class="inp" id="iname" type="text" placeholder="Adın" maxlength="12" autocomplete="off">
+    <button class="btn btn-gold" onclick="doCreate()">Oda Oluştur</button>
+    <button class="btn btn-teal" onclick="playVsBot()">Bilgisayara Karşı</button>
+  </div>
+  <div class="sep-line">katıl</div>
+  <div class="home-panel">
+    <h3>Odaya Katıl</h3>
+    <input class="inp inp-code" id="icode" type="text" placeholder="XXXX" maxlength="4">
+    <button class="btn btn-ghost" onclick="doJoin()">Katıl</button>
+  </div>
 </div>
 <div id="slob" class="scr">
-  <h1 style="font-size:1.9rem">Bekleme Odası</h1>
-  <div class="codebox"><small>ODA KODU — Arkadaşlarınla Paylaş</small><div class="code" id="lcode">----</div></div>
-  <div id="lplayers" style="width:100%;max-width:300px;display:flex;flex-direction:column;gap:6px;"></div>
-  <button class="btn btn-g" id="bstart" onclick="hostStart()" disabled>Oyunu Başlat</button>
-  <button class="btn btn-s" onclick="doLeave()" style="margin-top:4px">Çık</button>
+  <div class="code-box">
+    <small>ODA KODU — Arkadaşlarınla Paylaş</small>
+    <div class="code" id="lcode">----</div>
+  </div>
+  <div id="lplayers" style="width:100%;max-width:310px;display:flex;flex-direction:column;gap:5px;"></div>
+  <button class="btn btn-gold" id="bstart" onclick="hostStart()" disabled style="width:100%;max-width:310px">Başlat</button>
+  <button class="btn btn-ghost" onclick="doLeave()" style="width:100%;max-width:310px">Çık</button>
 </div>
 <div id="sg" class="scr">
-  <div class="tb">
-    <div class="tbs" id="tscores"></div>
-    <div class="rt">EL<br><span id="rnum" style="font-size:.95rem">1/20</span></div>
-    <div class="tt" id="ttag">—</div>
+  <div class="topbar">
+    <div class="chips" id="chips"></div>
+    <div class="el-tag">EL<br><b id="el-num" style="font-family:'Cinzel',serif;font-size:.85rem;color:var(--gold)">1/20</b></div>
   </div>
-  <div class="ta">
-    <div class="banner" id="gban">Hazırlanıyor…</div>
-    <div class="pa" id="parea"></div>
+  <div class="opps" id="opps"></div>
+  <div class="table-center">
+    <div class="gt-pill" id="gt-pill">Oyun Seçiliyor</div>
+    <div class="played-area" id="played-area"></div>
   </div>
-  <div class="ab">
-    <div class="am" id="amsg">—</div>
-    <div id="abtn"></div>
+  <div class="gt-chooser hidden" id="gt-chooser">
+    <div class="gt-header">Oyun Türü Seç</div>
+    <div class="gt-meta" id="gt-meta">Koz: 2 · Ceza: 3</div>
+    <div class="gt-cols">
+      <div class="gt-col">
+        <div class="gt-col-label koz">♠ KOZ</div>
+        <div id="gt-koz"></div>
+      </div>
+      <div class="gt-col">
+        <div class="gt-col-label ceza">✕ CEZA</div>
+        <div id="gt-ceza"></div>
+      </div>
+    </div>
   </div>
-  <div class="ha">
-    <div class="hl">Elindeki Kartlar</div>
-    <div class="hc" id="hcards"></div>
+  <div class="action-bar">
+    <div class="act-msg" id="act-msg">—</div>
   </div>
-</div>
-<div class="ov" id="ovgt">
-  <div class="mo">
-    <h2>Oyun Türü Seç</h2>
-    <p id="gtinfo">Sıra sende!</p>
-    <div class="gtg" id="gtgrid"></div>
-    <button class="btn btn-g" id="bgtok" onclick="confirmGT()" disabled style="max-width:100%;margin-top:6px">Oyna</button>
-  </div>
-</div>
-<div class="ov" id="ovrd">
-  <div class="mo">
-    <h2 id="rdtitle">El Bitti</h2>
-    <table class="sbt" id="rdtable"></table>
-    <button class="btn btn-g" onclick="ackRound()" style="max-width:100%;margin-top:10px">Devam</button>
+  <div class="hand-area">
+    <div class="hand-lbl" id="hand-lbl">Kartlarım</div>
+    <div class="hand-cards" id="hand-cards"></div>
   </div>
 </div>
-<div class="ov" id="ovend">
-  <div class="mo">
-    <h2>🏆 Oyun Bitti!</h2>
-    <table class="sbt" id="oetable"></table>
-    <div id="oewinner" style="margin:12px 0 16px;font-size:1rem;color:var(--au2)"></div>
-    <button class="btn btn-g" onclick="backHome()" style="max-width:100%">Ana Sayfa</button>
+<div class="ov" id="ov-round">
+  <div class="modal">
+    <h2 id="round-title">El Bitti</h2>
+    <table class="sct" id="round-table"></table>
+    <button class="btn btn-gold" onclick="ackRound()" style="width:100%;margin-top:12px">Devam →</button>
   </div>
 </div>
-<div class="tf" id="tflash"><div class="tb2"><h3>El Aldı!</h3><div class="tw" id="twname">—</div></div></div>
+<div class="ov" id="ov-end">
+  <div class="modal">
+    <h2>🏆 Oyun Bitti</h2>
+    <table class="sct" id="end-table"></table>
+    <div id="end-winner" style="font-size:.9rem;color:var(--gold2);margin:10px 0 14px"></div>
+    <button class="btn btn-gold" onclick="backHome()" style="width:100%">Ana Sayfa</button>
+  </div>
+</div>
+<div class="tflash" id="tflash">
+  <div class="tbox"><h3>El Aldı!</h3><div class="tw" id="twname">—</div></div>
+</div>
 <div class="toast" id="toast"></div>
-<div class="cd" id="cds">⬤ bağlanıyor</div>
+<div class="conn" id="conn">⬤ bağlanıyor</div>
 <script>
-const SUITS=['♠','♥','♦','♣'],RANKS=['2','3','4','5','6','7','8','9','10','J','Q','K','A'],RV={2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:10,J:11,Q:12,K:13,A:14};
-const GT=[{id:'km',l:'Maça Koz',i:'♠',p:'+50/el',t:'koz',s:'♠'},{id:'kk',l:'Kupa Koz',i:'♥',p:'+50/el',t:'koz',s:'♥'},{id:'kd',l:'Karo Koz',i:'♦',p:'+50/el',t:'koz',s:'♦'},{id:'ks',l:'Sinek Koz',i:'♣',p:'+50/el',t:'koz',s:'♣'},{id:'el',l:'El Almaz',i:'🚫',p:'-50/el',t:'ceza'},{id:'ku',l:'Kupa Almaz',i:'♥',p:'-30/kupa',t:'ceza'},{id:'kz',l:'Kız Almaz',i:'Q',p:'-100/kız',t:'ceza'},{id:'er',l:'Erkek Almaz',i:'K',p:'-60/erkek',t:'ceza'},{id:'s2',l:'Son İki',i:'2️⃣',p:'-180/el',t:'ceza'},{id:'rf',l:'Rıfkı',i:'👑',p:'-320',t:'ceza'}];
+const SUITS=['♠','♥','♦','♣'],RANKS=['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+const RV={'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,J:11,Q:12,K:13,A:14};
+const GT=[
+  {id:'km',l:'Maça Koz',  i:'♠',p:'+50/el', t:'koz',s:'♠'},
+  {id:'kk',l:'Kupa Koz',  i:'♥',p:'+50/el', t:'koz',s:'♥'},
+  {id:'kd',l:'Karo Koz',  i:'♦',p:'+50/el', t:'koz',s:'♦'},
+  {id:'ks',l:'Sinek Koz', i:'♣',p:'+50/el', t:'koz',s:'♣'},
+  {id:'el',l:'El Almaz',  i:'🚫',p:'-50/el', t:'ceza'},
+  {id:'ku',l:'Kupa Almaz',i:'♥',p:'-30/kupa',t:'ceza'},
+  {id:'kz',l:'Kız Almaz', i:'Q', p:'-100/kız',t:'ceza'},
+  {id:'er',l:'Erkek Almaz',i:'K',p:'-60/erkek',t:'ceza'},
+  {id:'s2',l:'Son İki',   i:'2️⃣',p:'-180/el', t:'ceza'},
+  {id:'rf',l:'Rıfkı',     i:'👑',p:'-320',    t:'ceza'},
+];
+const BOT_NAMES=['Asistan','RobotKral','KartAI'];
 const $=id=>document.getElementById(id);
-const scr=id=>{document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');};
 const isRed=s=>s==='♥'||s==='♦';
-let _tt=null;
-function toast(m,d=2400){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('on'),d);}
+let _tt;
+function toast(m,d=2500){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('on'),d);}
 function uid(){return Math.random().toString(36).substr(2,8);}
 function genCode(){return Math.random().toString(36).substr(2,4).toUpperCase();}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=0|Math.random()*(i+1);[b[i],b[j]]=[b[j],b[i]];}return b;}
 function makeDeck(){const d=[];for(const s of SUITS)for(const r of RANKS)d.push({s,r});return shuffle(d);}
-function deal4(deck){const h=[[],[],[],[]];deck.forEach((c,i)=>h[i%4].push(c));return h;}
+function deal4(d){const h=[[],[],[],[]];d.forEach((c,i)=>h[i%4].push(c));return h;}
+const scrGo=id=>{document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');};
+let client=null,myPid='',myName='',roomCode='',isHost=false,G={},myHand=[],botMode=false;
 const BROKER='wss://broker.hivemq.com:8884/mqtt';
-let client=null,myPid='',myName='',roomCode='',isHost=false,G={},myHand=[],selCard=null,selGT=null;
-function mqttConnect(onConn){myPid='king_'+uid();loadMqtt(()=>{client=mqtt.connect(BROKER,{clientId:myPid,clean:true,reconnectPeriod:3000});client.on('connect',()=>{$('cds').textContent='⬤ bağlı';$('cds').classList.add('ok');onConn();});client.on('error',e=>{$('cds').textContent='⬤ hata';toast('Bağlantı hatası');});client.on('message',(topic,payload)=>{try{const msg=JSON.parse(payload.toString());if(msg.from!==myPid)handleMsg(msg);}catch(e){}});});}
-function loadMqtt(cb){if(window.mqtt){cb();return;}const s=document.createElement('script');s.src='https://unpkg.com/mqtt@5.3.4/dist/mqtt.min.js';s.onload=cb;s.onerror=()=>{toast('MQTT yüklenemedi');};document.head.appendChild(s);}
+function mqttConnect(cb){
+  myPid='k_'+uid();
+  loadMqtt(()=>{
+    client=mqtt.connect(BROKER,{clientId:myPid,clean:true,reconnectPeriod:3000,connectTimeout:8000});
+    client.on('connect',()=>{$('conn').textContent='⬤ bağlı';$('conn').classList.add('ok');cb();});
+    client.on('error',()=>{$('conn').textContent='⬤ hata';toast('Bağlantı hatası');});
+    client.on('message',(t,p)=>{try{const m=JSON.parse(p.toString());if(m.from!==myPid)handleMsg(m);}catch(e){}});
+  });
+}
+function loadMqtt(cb){
+  if(window.mqtt){cb();return;}
+  const s=document.createElement('script');
+  s.src='https://unpkg.com/mqtt@5.3.4/dist/mqtt.min.js';
+  s.onload=cb;s.onerror=()=>toast('MQTT yüklenemedi');
+  document.head.appendChild(s);
+}
 function pub(type,data){if(!client||!roomCode)return;client.publish('king/'+roomCode,JSON.stringify({type,...data,from:myPid}),{qos:0});}
 function sub(){client.subscribe('king/'+roomCode);}
-window.doCreate=function(){const name=$('iname').value.trim();if(!name){toast('İsmini gir!');return;}myName=name;isHost=true;roomCode=genCode();mqttConnect(()=>{sub();$('lcode').textContent=roomCode;G={players:{},playerOrder:[myPid],scores:{},usedGT:{},round:1,totalRounds:20,pickerIdx:0,phase:'lobby'};G.players[myPid]={name:myName,pos:0,kozLeft:2,cezaLeft:3};G.scores[myPid]=0;scr('slob');renderLobby();setTimeout(()=>pub('JOIN',{name:myName,pid:myPid}),200);});};
-window.doJoin=function(){const name=$('iname').value.trim(),code=$('icode').value.trim().toUpperCase();if(!name){toast('İsmini gir!');return;}if(code.length!==4){toast('4 haneli kod gir!');return;}myName=name;isHost=false;roomCode=code;mqttConnect(()=>{sub();$('lcode').textContent=roomCode;scr('slob');setTimeout(()=>pub('JOIN',{name:myName,pid:myPid}),300);toast('Odaya bağlanıyor…');});};
-window.doLeave=function(){try{client?.end();}catch(e){}client=null;G={};myHand=[];scr('sh');};
-function handleMsg(msg){const t=msg.type;if(t==='JOIN')onJoin(msg);else if(t==='LOBBY')onLobby(msg);else if(t==='START')onStart(msg);else if(t==='STATE')onState(msg);else if(t==='PLAY'&&isHost)hostPlay(msg);else if(t==='GT'&&isHost)hostGT(msg);else if(t==='ACK'&&isHost)hostAck(msg);}
-function onJoin(d){if(!isHost)return;const pid=d.pid||d.from;if(G.players[pid]||G.playerOrder.length>=4)return;G.players[pid]={name:d.name,pos:G.playerOrder.length,kozLeft:2,cezaLeft:3};G.scores[pid]=0;G.playerOrder.push(pid);pubLobby();}
+window.doCreate=function(){
+  const name=$('iname').value.trim();if(!name){toast('Adını gir!');return;}
+  myName=name;isHost=true;botMode=false;roomCode=genCode();
+  mqttConnect(()=>{sub();$('lcode').textContent=roomCode;initG();scrGo('slob');renderLobby();setTimeout(()=>pub('JOIN',{name:myName,pid:myPid}),200);});
+};
+window.doJoin=function(){
+  const name=$('iname').value.trim(),code=$('icode').value.trim().toUpperCase();
+  if(!name){toast('Adını gir!');return;}if(code.length!==4){toast('4 haneli kod!');return;}
+  myName=name;isHost=false;botMode=false;roomCode=code;
+  mqttConnect(()=>{sub();$('lcode').textContent=roomCode;scrGo('slob');setTimeout(()=>pub('JOIN',{name:myName,pid:myPid}),300);toast('Bağlanıyor…');});
+};
+window.playVsBot=function(){
+  const name=$('iname').value.trim();if(!name){toast('Adını gir!');return;}
+  myName=name;isHost=true;botMode=true;roomCode='B'+uid().substr(0,3);
+  myPid='h_'+uid();$('conn').textContent='⬤ bot';$('conn').classList.add('ok');
+  $('lcode').textContent='BOT';initG();
+  for(let i=0;i<3;i++){const bp='b_'+i;G.playerOrder.push(bp);G.players[bp]={name:BOT_NAMES[i],pos:i+1,kozLeft:2,cezaLeft:3,isBot:true};G.scores[bp]=0;}
+  scrGo('slob');renderLobby();$('bstart').disabled=false;$('bstart').textContent='Oyna!';
+};
+function initG(){
+  G={players:{},playerOrder:[myPid],scores:{},usedGT:{},round:1,totalRounds:20,pickerIdx:0,phase:'lobby'};
+  G.players[myPid]={name:myName,pos:0,kozLeft:2,cezaLeft:3,isBot:false};
+  G.scores[myPid]=0;
+}
+window.doLeave=function(){try{client?.end();}catch(e){}client=null;G={};myHand=[];botMode=false;scrGo('sh');};
+function handleMsg(msg){
+  const t=msg.type;
+  if(t==='JOIN')onJoin(msg);
+  else if(t==='LOBBY')onLobby(msg);
+  else if(t==='START')onStart(msg);
+  else if(t==='STATE')onState(msg);
+  else if(t==='PLAY'&&isHost)hostPlay(msg);
+  else if(t==='GT'&&isHost)hostGT(msg);
+  else if(t==='ACK'&&isHost)hostAck(msg);
+}
+function onJoin(d){
+  if(!isHost)return;
+  const pid=d.pid||d.from;
+  if(G.players[pid]||G.playerOrder.length>=4)return;
+  G.players[pid]={name:d.name,pos:G.playerOrder.length,kozLeft:2,cezaLeft:3,isBot:false};
+  G.scores[pid]=0;G.playerOrder.push(pid);pubLobby();
+}
 function pubLobby(){pub('LOBBY',{players:G.players,playerOrder:G.playerOrder,scores:G.scores});renderLobby();}
 function onLobby(d){G.players=d.players;G.playerOrder=d.playerOrder;G.scores=d.scores||{};renderLobby();}
-function renderLobby(){const c=$('lplayers');c.innerHTML='';for(let i=0;i<4;i++){const pid=G.playerOrder?.[i],p=pid?G.players[pid]:null,div=document.createElement('div');if(p){div.className='prow on';div.innerHTML=`<div class="av">${p.name[0].toUpperCase()}</div><div class="pn">${p.name}</div>${pid===myPid?'<span class="bdg">SEN</span>':''}${i===0?'<span class="bdg" style="color:var(--au2)">HOST</span>':''}`;}else{div.className='prow';div.innerHTML=`<div class="av mt">?</div><div class="pn mt">Bekleniyor…</div>`;}c.appendChild(div);}if(isHost){$('bstart').disabled=(!G.playerOrder||G.playerOrder.length<4);$('bstart').textContent=G.playerOrder?.length<4?`Oyunu Başlat (${G.playerOrder?.length||1}/4)`:'Oyunu Başlat';}else{$('bstart').disabled=true;$('bstart').textContent='Host başlatmayı bekle…';}}
-window.hostStart=function(){if(!isHost||G.playerOrder.length<4)return;G.phase='choosing';G.usedGT={};G.gt=null;G.roundScores={};G.ackSet={};G.playerOrder.forEach(p=>{G.roundScores[p]=0;});dealAndStart();};
-function dealAndStart(){const deck=makeDeck(),hands=deal4(deck);G.playerOrder.forEach((pid,i)=>{const state={...G,myHand:hands[i]};if(pid===myPid)applyState(state);else pub('START',{state:sanG(G),myHand:hands[i],target:pid});});}
-function sanG(g){const s={...g};delete s.myHand;return s;}
+function renderLobby(){
+  const c=$('lplayers');c.innerHTML='';
+  for(let i=0;i<4;i++){
+    const pid=G.playerOrder?.[i],p=pid?G.players[pid]:null,d=document.createElement('div');
+    if(p){d.className='seat-row filled';d.innerHTML=`<div class="av ${p.isBot?'av-bot':'av-human'}">${p.name[0].toUpperCase()}</div><div class="seat-name">${p.name}</div>${pid===myPid?'<span class="badge badge-you">SEN</span>':''}${i===0&&!p.isBot?'<span class="badge badge-host">HOST</span>':''}${p.isBot?'<span class="badge badge-bot">BOT</span>':''}`;}
+    else{d.className='seat-row';d.innerHTML=`<div class="av av-empty">?</div><div class="seat-name empty">Bekleniyor…</div>`;}
+    c.appendChild(d);
+  }
+  if(isHost){$('bstart').disabled=G.playerOrder.length<4;$('bstart').textContent=G.playerOrder.length<4?`Başlat (${G.playerOrder.length}/4)`:'Oyunu Başlat';}
+  else{$('bstart').disabled=true;$('bstart').textContent='Host bekliyor…';}
+}
+window.hostStart=function(){
+  if(!isHost||G.playerOrder.length<4)return;
+  G.phase='choosing';G.usedGT={};G.gt=null;G.roundScores={};G.ackSet={};
+  G.playerOrder.forEach(p=>G.roundScores[p]=0);
+  dealAndStart();
+};
+function dealAndStart(){
+  const deck=makeDeck(),hands=deal4(deck);
+  G._botHands={};
+  G.playerOrder.forEach((pid,i)=>{
+    if(pid===myPid){myHand=hands[i];applyState({...G});}
+    else if(botMode)G._botHands[pid]=hands[i];
+    else pub('START',{state:sanG(G),myHand:hands[i],target:pid});
+  });
+  if(botMode)scheduleBotAction();
+}
+function sanG(g){const s={...g};delete s._botHands;return s;}
 function onStart(d){if(d.target&&d.target!==myPid)return;myHand=d.myHand||[];applyState(d.state);}
-function bcastState(newHands){G.playerOrder.forEach((pid,i)=>{const msg={state:sanG(G),target:pid};if(newHands)msg.myHand=newHands[i];if(pid===myPid){if(newHands)myHand=newHands[i];renderFromG();}else pub('STATE',msg);});}
+function bcastState(newHands){
+  G.playerOrder.forEach((pid,i)=>{
+    if(pid===myPid){if(newHands)myHand=newHands[i];renderFromG();}
+    else if(botMode){if(newHands&&G._botHands)G._botHands[pid]=newHands[i];}
+    else{const m={state:sanG(G),target:pid};if(newHands)m.myHand=newHands[i];pub('STATE',m);}
+  });
+  if(botMode)scheduleBotAction();
+}
 function onState(d){if(d.target&&d.target!==myPid)return;if(d.myHand)myHand=d.myHand;applyState(d.state);}
-function applyState(s){G={...s};selCard=null;renderFromG();}
-function renderFromG(){scr('sg');renderTop();renderBanner();renderTable();renderHand();renderAction();handlePhaseUI();}
-function renderTop(){const sc=$('tscores');sc.innerHTML='';if(!G.playerOrder)return;G.playerOrder.forEach(pid=>{const p=G.players[pid];if(!p)return;const sv=(G.scores[pid]||0)+(G.roundScores?.[pid]||0);const d=document.createElement('div');d.className='sc'+(pid===myPid?' me':'');d.innerHTML=`<span>${p.name.substr(0,4)}</span><b class="${sv>=0?'b-pos':'b-neg'}">${sv>=0?'+':''}${sv}</b>`;sc.appendChild(d);});$('rnum').textContent=`${G.round||1}/${G.totalRounds||20}`;const cpid=G.phase==='choosing'?G.playerOrder?.[G.pickerIdx||0]:G.currentPlayer;$('ttag').textContent=cpid===myPid?'SENİN SIRAN':(G.players?.[cpid]?.name||'?');}
-function renderBanner(){const gt=GT.find(g=>g.id===G.gt);$('gban').textContent=gt?`${gt.i} ${gt.l}`:'Oyun türü seçiliyor…';}
-function renderTable(){const area=$('parea');area.innerHTML='';if(!G.trick||!G.playerOrder)return;G.playerOrder.forEach(pid=>{const c=G.trick[pid];if(!c)return;const slot=document.createElement('div');slot.className='ps'+(G.trickWinner===pid?' win':'');slot.innerHTML=`<div class="pslb">${G.players[pid]?.name||'?'}</div>`;slot.appendChild(mkCard(c,false,G.trickWinner===pid));area.appendChild(slot);});}
-function renderHand(){const hc=$('hcards');hc.innerHTML='';const myTurn=G.phase==='playing'&&G.currentPlayer===myPid;(myHand||[]).forEach((card,idx)=>{const ok=myTurn&&canPlay(card,myHand);const el=mkCard(card,myTurn&&ok,selCard===idx);if(myTurn&&!ok)el.classList.add('dim');if(myTurn&&ok)el.onclick=()=>{selCard=idx;renderHand();const b=$('abtn').querySelector('.btn');if(b)b.disabled=false;};hc.appendChild(el);});}
-function renderAction(){const m=$('amsg'),w=$('abtn');w.innerHTML='';if(G.phase==='choosing'){const pp=G.playerOrder?.[G.pickerIdx||0];if(pp===myPid){m.textContent='Oyun türünü seç';w.innerHTML=`<button class="btn btn-g" onclick="openGT()">Seç</button>`;}else{m.innerHTML=`${G.players?.[pp]?.name||'?'} seçiyor<span class="dots"></span>`;}}else if(G.phase==='playing'){if(G.currentPlayer===myPid){m.textContent='Kart seç ve oyna';const b=document.createElement('button');b.className='btn btn-g';b.textContent='Oyna';b.disabled=selCard===null;b.onclick=doPlay;w.appendChild(b);}else{m.innerHTML=`${G.players?.[G.currentPlayer]?.name||'?'} oynuyor<span class="dots"></span>`;}}else m.textContent='';}
-function handlePhaseUI(){if(G.phase==='choosing'&&G.playerOrder?.[G.pickerIdx||0]===myPid)openGT();if(G.phase==='trick_result'){$('twname').textContent=G.players?.[G.trickWinner]?.name||'?';$('tflash').classList.add('on');setTimeout(()=>$('tflash').classList.remove('on'),1200);}if(G.phase==='round_over')showRoundOver();if(G.phase==='game_over')showGameOver();if(G.phase==='king_made')toast(`👑 KİNG! ${G.players?.[G.kingBy]?.name} tüm elleri aldı!`,5000);}
-function mkCard(card,click,sel){const el=document.createElement('div');el.className='card tc '+(isRed(card.s)?'r':'bk')+(sel?' sel wn':'');el.innerHTML=`<div class="cr">${card.r}</div><div class="cs">${card.s}</div>`;if(!click)el.style.cursor='default';return el;}
-window.openGT=function(){selGT=null;$('bgtok').disabled=true;const me=G.players?.[myPid],used=G.usedGT||{};$('gtinfo').textContent=`Koz hakkın: ${me?.kozLeft??2}  Ceza hakkın: ${me?.cezaLeft??3}`;const grid=$('gtgrid');grid.innerHTML='';GT.forEach(gt=>{const u=used[gt.id]||0,isKoz=gt.t==='koz';const ok=u<2&&((isKoz&&(me?.kozLeft??2)>0)||(!isKoz&&(me?.cezaLeft??3)>0));const b=document.createElement('div');b.className='gtb'+(ok?'':' ud');b.innerHTML=`<span class="gti">${gt.i}</span>${gt.l}<span class="gtp">${gt.p}</span>`;if(ok)b.addEventListener('click',()=>{document.querySelectorAll('.gtb').forEach(x=>x.classList.remove('sl'));b.classList.add('sl');selGT=gt.id;$('bgtok').disabled=false;});grid.appendChild(b);});$('ovgt').classList.add('on');};
-window.confirmGT=function(){if(!selGT)return;$('ovgt').classList.remove('on');if(isHost)hostGT({gt:selGT,from:myPid});else pub('GT',{gt:selGT});};
-function hostGT(d){if(!isHost)return;const pid=d.from,gt=d.gt,def=GT.find(g=>g.id===gt);if(!def)return;G.gt=gt;G.usedGT[gt]=(G.usedGT[gt]||0)+1;if(def.t==='koz')G.players[pid].kozLeft=Math.max(0,(G.players[pid].kozLeft||2)-1);else G.players[pid].cezaLeft=Math.max(0,(G.players[pid].cezaLeft||3)-1);const deck=makeDeck(),hands=deal4(deck);G.phase='playing';G.trick={};G.ledSuit=null;G.trickWinner=null;G.trickCount=0;G.roundScores=G.roundScores||{};G.playerTricks={};G.takenKupa={};G.takenKiz={};G.takenErkek={};G.rifkiTaker=null;G.trickHist=[];const li=((G.round||1)-1)%G.playerOrder.length;G.currentPlayer=G.playerOrder[li];bcastState(hands);}
-function canPlay(card,hand){if(!G.ledSuit){if((G.gt==='ku'||G.gt==='rf')&&card.s==='♥'&&hand.some(c=>c.s!=='♥'))return false;return true;}if(hand.some(c=>c.s===G.ledSuit))return card.s===G.ledSuit;const def=GT.find(g=>g.id===G.gt);if(def?.t==='koz'&&hand.some(c=>c.s===def.s))return card.s===def.s;return true;}
-function doPlay(){if(selCard===null)return;const card=myHand[selCard];if(isHost)hostPlay({card,from:myPid});else pub('PLAY',{card});selCard=null;}
-function hostPlay(d){if(!isHost)return;const pid=d.from,card=d.card;if(!G.trick)G.trick={};G.trick[pid]=card;if(!G.ledSuit)G.ledSuit=card.s;G.trickCount=(G.trickCount||0)+1;const allDone=G.playerOrder.every(p=>G.trick[p]);if(allDone){const winner=trickWin();G.trickWinner=winner;G.playerTricks=G.playerTricks||{};G.playerTricks[winner]=(G.playerTricks[winner]||0)+1;const def=GT.find(g=>g.id===G.gt);if(def?.id==='ku'||def?.id==='rf'){G.takenKupa=G.takenKupa||{};Object.values(G.trick).forEach(c=>{if(c.s==='♥'){G.takenKupa[winner]=(G.takenKupa[winner]||0)+1;}});if(def.id==='rf')Object.values(G.trick).forEach(c=>{if(c.s==='♥'&&c.r==='K')G.rifkiTaker=winner;});}if(def?.id==='kz'){G.takenKiz=G.takenKiz||{};Object.values(G.trick).forEach(c=>{if(c.r==='Q'){G.takenKiz[winner]=(G.takenKiz[winner]||0)+1;}});}if(def?.id==='er'){G.takenErkek=G.takenErkek||{};Object.values(G.trick).forEach(c=>{if(c.r==='K'||c.r==='J'){G.takenErkek[winner]=(G.takenErkek[winner]||0)+1;}});}if(def?.id==='s2'){G.trickHist=G.trickHist||[];G.trickHist.push(winner);}const kingMade=def?.t==='koz'&&(G.playerTricks[winner]||0)>=11;G.phase=kingMade?'king_made':'trick_result';if(kingMade)G.kingBy=winner;G._lastWinner=winner;bcastState(null);if(kingMade)setTimeout(doKingEnd,2500);else setTimeout(hostNextTrick,1600);}else{const idx=G.playerOrder.indexOf(pid);G.currentPlayer=G.playerOrder[(idx+1)%G.playerOrder.length];G.phase='playing';bcastState(null);}}
-function trickWin(){const def=GT.find(g=>g.id===G.gt);let best=null,bv=-1;G.playerOrder.forEach(pid=>{const c=G.trick[pid];if(!c)return;const v=RV[c.r]||0;let eff=def?.t==='koz'?(c.s===def.s?v+100:c.s===G.ledSuit?v:-1):(c.s===G.ledSuit?v:-1);if(eff>bv){bv=eff;best=pid;}});return best;}
-function hostNextTrick(){if(!isHost)return;const done=(G.trickCount||0)>=13;if(done)hostCalc();else{G.phase='playing';G.trick={};G.ledSuit=null;G.trickWinner=null;G.currentPlayer=G._lastWinner||G.playerOrder[0];bcastState(null);}}
-function hostCalc(){const def=GT.find(g=>g.id===G.gt),rs={};G.playerOrder.forEach(p=>rs[p]=0);const pt=G.playerTricks||{};if(def?.t==='koz')G.playerOrder.forEach(p=>rs[p]=(pt[p]||0)*50);else if(def?.id==='el')G.playerOrder.forEach(p=>rs[p]=-(pt[p]||0)*50);else if(def?.id==='ku')G.playerOrder.forEach(p=>rs[p]=-(G.takenKupa?.[p]||0)*30);else if(def?.id==='kz')G.playerOrder.forEach(p=>rs[p]=-(G.takenKiz?.[p]||0)*100);else if(def?.id==='er')G.playerOrder.forEach(p=>rs[p]=-(G.takenErkek?.[p]||0)*60);else if(def?.id==='s2'){const h=G.trickHist||[];[...new Set(h.slice(-2))].forEach(p=>rs[p]=(rs[p]||0)-180);}else if(def?.id==='rf'&&G.rifkiTaker)rs[G.rifkiTaker]=-320;G.playerOrder.forEach(p=>{G.scores[p]=(G.scores[p]||0)+(rs[p]||0);});G.roundScores=rs;const next=G.round+1;if(next>G.totalRounds){G.phase='game_over';G.finalScores={...G.scores};}else{G.phase='round_over';G.ackSet={};G.round=next;G.pickerIdx=((G.pickerIdx||0)+1)%G.playerOrder.length;}bcastState(null);}
-function doKingEnd(){if(!isHost)return;G.playerOrder.forEach(p=>{if(p===G.kingBy)G.scores[p]=(G.scores[p]||0)+600;else G.scores[p]=(G.scores[p]||0)-200;});G.phase='game_over';G.finalScores={...G.scores};bcastState(null);}
-window.ackRound=function(){$('ovrd').classList.remove('on');if(isHost)hostAck({from:myPid});else pub('ACK',{});};
-function hostAck(d){if(!isHost)return;G.ackSet=G.ackSet||{};G.ackSet[d.from||'?']=1;if(Object.keys(G.ackSet).length>=G.playerOrder.length){G.gt=null;G.ackSet={};G.playerTricks={};G.roundScores={};G.playerOrder.forEach(p=>{G.playerTricks[p]=0;G.roundScores[p]=0;});const deck=makeDeck(),hands=deal4(deck);G.phase='choosing';G.trick={};G.ledSuit=null;G.trickWinner=null;G.trickCount=0;G.takenKupa={};G.takenKiz={};G.takenErkek={};G.rifkiTaker=null;G.trickHist=[];bcastState(hands);}}
-function showRoundOver(){const gt=GT.find(g=>g.id===G.gt);$('rdtitle').textContent='El Bitti — '+(gt?.l||'');const t=$('rdtable');t.innerHTML=`<tr><th>Oyuncu</th><th>Bu El</th><th>Toplam</th></tr>`;[...G.playerOrder].sort((a,b)=>(G.scores[b]||0)-(G.scores[a]||0)).forEach(pid=>{const p=G.players[pid],rs=G.roundScores?.[pid]||0,tot=G.scores[pid]||0;t.innerHTML+=`<tr${pid===myPid?' class="me"':''}><td>${p?.name||'?'}</td><td style="color:${rs>=0?'#4ade80':'#f87171'}">${rs>=0?'+':''}${rs}</td><td style="color:${tot>=0?'#4ade80':'#f87171'};font-weight:700">${tot>=0?'+':''}${tot}</td></tr>`;});$('ovrd').classList.add('on');}
-function showGameOver(){const sc=G.finalScores||G.scores||{},t=$('oetable');t.innerHTML=`<tr><th>#</th><th>Oyuncu</th><th>Puan</th><th></th></tr>`;[...G.playerOrder].sort((a,b)=>(sc[b]||0)-(sc[a]||0)).forEach((pid,i)=>{const p=G.players[pid],s=sc[pid]||0;t.innerHTML+=`<tr${pid===myPid?' class="me"':''}><td style="font-family:'Cinzel',serif;color:var(--au);font-weight:900">${i+1}</td><td>${p?.name||'?'}</td><td style="color:${s>=0?'#4ade80':'#f87171'};font-weight:700">${s>=0?'+':''}${s}</td><td>${s>=0?'✅':'❌'}</td></tr>`;});$('oewinner').innerHTML=`🏆 <strong style="color:var(--au)">${G.players[[...G.playerOrder].sort((a,b)=>(sc[b]||0)-(sc[a]||0))[0]]?.name}</strong> kazandı!`;$('ovend').classList.add('on');}
-window.backHome=function(){$('ovend').classList.remove('on');try{client?.end();}catch(e){}client=null;G={};myHand=[];scr('sh');};
+function applyState(s){G={...s,_botHands:G._botHands||{}};renderFromG();}
+function renderFromG(){
+  scrGo('sg');
+  renderTopBar();renderOpps();renderCenter();renderGTChooser();renderHand();renderActionBar();handlePhaseUI();
+}
+function renderTopBar(){
+  const sc=$('chips');sc.innerHTML='';
+  const curPid=G.phase==='choosing'?(G.playerOrder||[])[G.pickerIdx||0]:G.currentPlayer;
+  (G.playerOrder||[]).forEach(pid=>{
+    const p=G.players[pid];if(!p)return;
+    const s=(G.scores[pid]||0)+(G.roundScores?.[pid]||0);
+    const d=document.createElement('div');
+    d.className='chip'+(pid===myPid?' me':'')+(pid===curPid?' cur':'');
+    d.innerHTML=`<span class="chip-name">${p.name.substr(0,5)}</span><span class="chip-score ${s>=0?'pos':'neg'}">${s>=0?'+':''}${s}</span>`;
+    sc.appendChild(d);
+  });
+  $('el-num').textContent=`${G.round||1}/${G.totalRounds||20}`;
+}
+function renderOpps(){
+  const row=$('opps');row.innerHTML='';
+  const curPid=G.phase==='choosing'?(G.playerOrder||[])[G.pickerIdx||0]:G.currentPlayer;
+  (G.playerOrder||[]).filter(p=>p!==myPid).forEach(pid=>{
+    const p=G.players[pid];if(!p)return;
+    const s=(G.scores[pid]||0)+(G.roundScores?.[pid]||0);
+    const active=pid===curPid;
+    const hSize=botMode?(G._botHands?.[pid]||[]).length:(G._handSizes?.[pid]??13);
+    const d=document.createElement('div');d.className='opp';
+    let cards='<div class="opp-mini-cards">';
+    for(let i=0;i<Math.min(hSize,9);i++)cards+=`<div class="mini-c"></div>`;
+    cards+='</div>';
+    d.innerHTML=`<div class="opp-top"><div class="opp-av ${p.isBot?'bot':'human'}${active?' active':''}">${p.name[0].toUpperCase()}</div><div class="opp-info"><span class="opp-n">${p.name}</span><span class="opp-s ${s>=0?'pos':'neg'}">${s>=0?'+':''}${s}</span></div></div>${cards}`;
+    row.appendChild(d);
+  });
+}
+function renderCenter(){
+  const area=$('played-area');area.innerHTML='';
+  const gt=GT.find(g=>g.id===G.gt);
+  $('gt-pill').textContent=gt?`${gt.i} ${gt.l}`:'Oyun Seçiliyor';
+  const trick=G.trick||{};const winPid=G.trickWinner;
+  (G.playerOrder||[]).forEach(pid=>{
+    const card=trick[pid];if(!card)return;
+    const slot=document.createElement('div');slot.className='p-slot';
+    const nm=document.createElement('div');nm.className='p-name'+(winPid===pid?' win':'');nm.textContent=G.players[pid]?.name||'?';
+    slot.appendChild(nm);
+    const cel=mkCard(card,false);cel.classList.add('played-c');if(winPid===pid)cel.classList.add('wn');
+    slot.appendChild(cel);area.appendChild(slot);
+  });
+}
+function renderGTChooser(){
+  const chooser=$('gt-chooser');
+  const pp=(G.playerOrder||[])[G.pickerIdx||0];
+  const isMyPick=G.phase==='choosing'&&pp===myPid;
+  const isAnyonePicking=G.phase==='choosing';
+  if(!isAnyonePicking){chooser.classList.add('hidden');return;}
+  chooser.classList.remove('hidden');
+  const me=G.players?.[myPid];const used=G.usedGT||{};
+  $('gt-meta').textContent=isMyPick?`Koz hakkın: ${me?.kozLeft??2}  ·  Ceza hakkın: ${me?.cezaLeft??3}`:`${G.players?.[pp]?.name||'?'} seçiyor…`;
+  const kozC=$('gt-koz'),cezaC=$('gt-ceza');
+  kozC.innerHTML='';cezaC.innerHTML='';
+  kozC.style.cssText='display:flex;flex-direction:column;gap:4px;';
+  cezaC.style.cssText='display:flex;flex-direction:column;gap:4px;';
+  GT.forEach(gt=>{
+    const u=used[gt.id]||0,isKoz=gt.t==='koz';
+    const ok=isMyPick&&u<2&&((isKoz&&(me?.kozLeft??2)>0)||(!isKoz&&(me?.cezaLeft??3)>0));
+    const d=document.createElement('div');
+    d.className='gt-item '+(isKoz?'koz-item':'ceza-item')+(isMyPick&&!ok?' off':'');
+    d.innerHTML=`<span class="gt-i">${gt.i}</span><span class="gt-txt"><span class="gt-n">${gt.l}</span><span class="gt-p">${gt.p}</span></span>`;
+    if(ok)d.addEventListener('click',()=>{if(isHost)hostGT({gt:gt.id,from:myPid});else pub('GT',{gt:gt.id});});
+    (isKoz?kozC:cezaC).appendChild(d);
+  });
+}
+function renderHand(){
+  const hc=$('hand-cards');hc.innerHTML='';
+  const myTurn=G.phase==='playing'&&G.currentPlayer===myPid;
+  $('hand-lbl').textContent=myTurn?'Kartına Tıkla':'Kartlarım';
+  const suitOrder={'♠':0,'♥':1,'♦':2,'♣':3};
+  const sorted=[...(myHand||[])].map((c,i)=>({c,i})).sort((a,b)=>{
+    const sd=(suitOrder[a.c.s]??0)-(suitOrder[b.c.s]??0);
+    return sd!==0?sd:(RV[a.c.r]||0)-(RV[b.c.r]||0);
+  });
+  let lastSuit=null;
+  sorted.forEach(({c:card,i:origIdx})=>{
+    if(lastSuit!==null&&lastSuit!==card.s){const sep=document.createElement('div');sep.className='suit-sep';hc.appendChild(sep);}
+    lastSuit=card.s;
+    const ok=myTurn&&canPlay(card,myHand);
+    const el=mkCard(card,ok);
+    if(myTurn&&!ok)el.classList.add('unplayable');
+    if(ok)el.addEventListener('click',()=>doPlayCard(origIdx));
+    hc.appendChild(el);
+  });
+}
+function renderActionBar(){
+  const m=$('act-msg');
+  if(G.phase==='choosing'){const pp=(G.playerOrder||[])[G.pickerIdx||0];if(pp===myPid)m.textContent='Oyun türünü seç ↑';else m.innerHTML=`${G.players?.[pp]?.name||'?'} seçiyor<span class="dots"></span>`;}
+  else if(G.phase==='playing'){if(G.currentPlayer===myPid)m.textContent='Kartına tıkla';else m.innerHTML=`${G.players?.[G.currentPlayer]?.name||'?'} oynuyor<span class="dots"></span>`;}
+  else m.textContent='';
+}
+function handlePhaseUI(){
+  if(G.phase==='trick_result'){$('twname').textContent=G.players?.[G.trickWinner]?.name||'?';$('tflash').classList.add('on');setTimeout(()=>$('tflash').classList.remove('on'),900);}
+  if(G.phase==='round_over')showRoundOver();
+  if(G.phase==='game_over')showGameOver();
+  if(G.phase==='king_made')toast(`👑 KİNG! ${G.players?.[G.kingBy]?.name} tüm elleri aldı!`,4000);
+}
+function mkCard(card,playable){
+  const el=document.createElement('div');
+  el.className='card '+(isRed(card.s)?'red':'black')+(playable?' playable':'');
+  el.innerHTML=`<div class="cr">${card.r}</div><div class="cs">${card.s}</div>`;
+  return el;
+}
+function hostGT(d){
+  if(!isHost)return;
+  const pid=d.from,gt=d.gt,def=GT.find(g=>g.id===gt);if(!def)return;
+  G.gt=gt;G.usedGT[gt]=(G.usedGT[gt]||0)+1;
+  if(def.t==='koz')G.players[pid].kozLeft=Math.max(0,(G.players[pid].kozLeft||2)-1);
+  else G.players[pid].cezaLeft=Math.max(0,(G.players[pid].cezaLeft||3)-1);
+  const deck=makeDeck(),hands=deal4(deck);
+  G._botHands={};G._handSizes={};
+  G.playerOrder.forEach((p,i)=>G._handSizes[p]=13);
+  G.phase='playing';G.trick={};G.ledSuit=null;G.trickWinner=null;G.trickCount=0;
+  G.playerTricks={};G.takenKupa={};G.takenKiz={};G.takenErkek={};G.rifkiTaker=null;G.trickHist=[];
+  G.playerOrder.forEach(p=>G.playerTricks[p]=0);
+  G.currentPlayer=G.playerOrder[((G.round||1)-1)%G.playerOrder.length];
+  bcastState(hands);
+}
+function canPlay(card,hand){
+  if(!G.ledSuit){if((G.gt==='ku'||G.gt==='rf')&&card.s==='♥'&&hand.some(c=>c.s!=='♥'))return false;return true;}
+  if(hand.some(c=>c.s===G.ledSuit))return card.s===G.ledSuit;
+  const def=GT.find(g=>g.id===G.gt);
+  if(def?.t==='koz'&&hand.some(c=>c.s===def.s))return card.s===def.s;
+  return true;
+}
+function doPlayCard(idx){
+  if(G.phase!=='playing'||G.currentPlayer!==myPid)return;
+  const card=myHand[idx];
+  if(!canPlay(card,myHand)){toast('Bu kartı oynayamazsın!');return;}
+  if(isHost)hostPlay({card,from:myPid});else pub('PLAY',{card});
+}
+function hostPlay(d){
+  if(!isHost)return;
+  const pid=d.from,card=d.card;
+  if(!G.trick)G.trick={};
+  if(G.trick[pid])return;
+  G.trick[pid]=card;
+  if(!G.ledSuit)G.ledSuit=card.s;
+  G.trickCount=(G.trickCount||0)+1;
+  if(pid===myPid)myHand=myHand.filter(c=>!(c.s===card.s&&c.r===card.r));
+  else if(botMode&&G._botHands?.[pid]){const bh=G._botHands[pid];const ci=bh.findIndex(c=>c.s===card.s&&c.r===card.r);if(ci>=0)G._botHands[pid]=bh.filter((_,i)=>i!==ci);}
+  if(G._handSizes)G._handSizes[pid]=Math.max(0,(G._handSizes[pid]??13)-1);
+  const allDone=G.playerOrder.every(p=>G.trick[p]);
+  if(allDone){
+    const winner=trickWin();G.trickWinner=winner;
+    G.playerTricks[winner]=(G.playerTricks[winner]||0)+1;
+    const def=GT.find(g=>g.id===G.gt);
+    if(def?.id==='ku'||def?.id==='rf'){G.takenKupa=G.takenKupa||{};Object.values(G.trick).forEach(c=>{if(c.s==='♥')G.takenKupa[winner]=(G.takenKupa[winner]||0)+1;});if(def.id==='rf')Object.values(G.trick).forEach(c=>{if(c.s==='♥'&&c.r==='K')G.rifkiTaker=winner;});}
+    if(def?.id==='kz'){G.takenKiz=G.takenKiz||{};Object.values(G.trick).forEach(c=>{if(c.r==='Q')G.takenKiz[winner]=(G.takenKiz[winner]||0)+1;});}
+    if(def?.id==='er'){G.takenErkek=G.takenErkek||{};Object.values(G.trick).forEach(c=>{if(c.r==='K'||c.r==='J')G.takenErkek[winner]=(G.takenErkek[winner]||0)+1;});}
+    if(def?.id==='s2'){G.trickHist=G.trickHist||[];G.trickHist.push(winner);}
+    const km=def?.t==='koz'&&G.playerTricks[winner]>=11;
+    G.phase=km?'king_made':'trick_result';if(km)G.kingBy=winner;G._lastWinner=winner;
+    bcastState(null);
+    if(km)setTimeout(doKingEnd,2500);else setTimeout(hostNextTrick,1300);
+  }else{
+    const idx=G.playerOrder.indexOf(pid);G.currentPlayer=G.playerOrder[(idx+1)%G.playerOrder.length];G.phase='playing';bcastState(null);
+  }
+}
+function trickWin(){
+  const def=GT.find(g=>g.id===G.gt);let best=null,bv=-1;
+  G.playerOrder.forEach(pid=>{const c=G.trick[pid];if(!c)return;const v=RV[c.r]||0;const eff=def?.t==='koz'?(c.s===def.s?v+100:c.s===G.ledSuit?v:-1):(c.s===G.ledSuit?v:-1);if(eff>bv){bv=eff;best=pid;}});
+  return best;
+}
+function hostNextTrick(){
+  if(!isHost)return;
+  if((G.trickCount||0)>=13)hostCalc();
+  else{G.phase='playing';G.trick={};G.ledSuit=null;G.trickWinner=null;G.currentPlayer=G._lastWinner||G.playerOrder[0];bcastState(null);}
+}
+function hostCalc(){
+  const def=GT.find(g=>g.id===G.gt),rs={};G.playerOrder.forEach(p=>rs[p]=0);
+  const pt=G.playerTricks||{};
+  if(def?.t==='koz')G.playerOrder.forEach(p=>rs[p]=(pt[p]||0)*50);
+  else if(def?.id==='el')G.playerOrder.forEach(p=>rs[p]=-(pt[p]||0)*50);
+  else if(def?.id==='ku')G.playerOrder.forEach(p=>rs[p]=-(G.takenKupa?.[p]||0)*30);
+  else if(def?.id==='kz')G.playerOrder.forEach(p=>rs[p]=-(G.takenKiz?.[p]||0)*100);
+  else if(def?.id==='er')G.playerOrder.forEach(p=>rs[p]=-(G.takenErkek?.[p]||0)*60);
+  else if(def?.id==='s2'){[...new Set((G.trickHist||[]).slice(-2))].forEach(p=>rs[p]=(rs[p]||0)-180);}
+  else if(def?.id==='rf'&&G.rifkiTaker)rs[G.rifkiTaker]=-320;
+  G.playerOrder.forEach(p=>G.scores[p]=(G.scores[p]||0)+(rs[p]||0));G.roundScores=rs;
+  const next=G.round+1;
+  if(next>G.totalRounds){G.phase='game_over';G.finalScores={...G.scores};}
+  else{G.phase='round_over';G.ackSet={};G.round=next;G.pickerIdx=((G.pickerIdx||0)+1)%G.playerOrder.length;}
+  bcastState(null);
+}
+function doKingEnd(){
+  if(!isHost)return;
+  G.playerOrder.forEach(p=>G.scores[p]=(G.scores[p]||0)+(p===G.kingBy?600:-200));
+  G.phase='game_over';G.finalScores={...G.scores};bcastState(null);
+}
+window.ackRound=function(){
+  $('ov-round').classList.remove('on');
+  if(isHost)hostAck({from:myPid});else pub('ACK',{});
+};
+function hostAck(d){
+  if(!isHost)return;G.ackSet=G.ackSet||{};G.ackSet[d.from||'?']=1;
+  if(Object.keys(G.ackSet).length>=G.playerOrder.length){
+    G.gt=null;G.ackSet={};G.playerTricks={};G.roundScores={};
+    G.playerOrder.forEach(p=>{G.playerTricks[p]=0;G.roundScores[p]=0;});
+    const deck=makeDeck(),hands=deal4(deck);
+    G.phase='choosing';G.trick={};G.ledSuit=null;G.trickWinner=null;G.trickCount=0;
+    G.takenKupa={};G.takenKiz={};G.takenErkek={};G.rifkiTaker=null;G.trickHist=[];G._botHands={};
+    bcastState(hands);
+  }
+}
+function showRoundOver(){
+  const gt=GT.find(g=>g.id===G.gt);$('round-title').textContent='El Bitti'+(gt?` — ${gt.l}`:'');
+  const t=$('round-table');t.innerHTML='<tr><th>Oyuncu</th><th>Bu El</th><th>Toplam</th></tr>';
+  [...(G.playerOrder||[])].sort((a,b)=>(G.scores[b]||0)-(G.scores[a]||0)).forEach(pid=>{
+    const p=G.players[pid],rs=G.roundScores?.[pid]||0,tot=G.scores[pid]||0;
+    t.innerHTML+=`<tr${pid===myPid?' class="me"':''}><td>${p?.name||'?'}</td><td style="color:${rs>=0?'#00e896':'#ff6060'}">${rs>=0?'+':''}${rs}</td><td style="color:${tot>=0?'#00e896':'#ff6060'};font-weight:700">${tot>=0?'+':''}${tot}</td></tr>`;
+  });
+  $('ov-round').classList.add('on');
+}
+function showGameOver(){
+  const sc=G.finalScores||G.scores||{};
+  const sorted=[...(G.playerOrder||[])].sort((a,b)=>(sc[b]||0)-(sc[a]||0));
+  const t=$('end-table');t.innerHTML='<tr><th>#</th><th>Oyuncu</th><th>Puan</th><th></th></tr>';
+  sorted.forEach((pid,i)=>{const p=G.players[pid],s=sc[pid]||0;t.innerHTML+=`<tr${pid===myPid?' class="me"':''}><td style="font-family:'Cinzel',serif;color:var(--gold);font-weight:900">${i+1}</td><td>${p?.name||'?'}</td><td style="color:${s>=0?'#00e896':'#ff6060'};font-weight:700">${s>=0?'+':''}${s}</td><td>${s>=0?'✅':'❌'}</td></tr>`;});
+  $('end-winner').innerHTML=`🏆 <strong style="color:var(--gold)">${G.players[sorted[0]]?.name}</strong> kazandı!`;
+  $('ov-end').classList.add('on');
+}
+window.backHome=function(){$('ov-end').classList.remove('on');try{client?.end();}catch(e){}client=null;G={};myHand=[];botMode=false;scrGo('sh');};
+function scheduleBotAction(){
+  if(!botMode||!isHost)return;
+  const order=G.playerOrder||[];
+  if(G.phase==='choosing'){const pp=order[G.pickerIdx||0];if(G.players[pp]?.isBot)setTimeout(()=>botGT(pp),800);}
+  else if(G.phase==='playing'){const cur=G.currentPlayer;if(G.players[cur]?.isBot)setTimeout(()=>botPlay(cur),700);}
+  else if(G.phase==='round_over'){const bots=order.filter(p=>G.players[p]?.isBot&&!(G.ackSet?.[p]));if(bots.length)setTimeout(()=>{bots.forEach(p=>hostAck({from:p}));},600);}
+}
+function botGT(pid){
+  const me=G.players[pid];const used=G.usedGT||{};
+  const avail=GT.filter(gt=>{const u=used[gt.id]||0,isK=gt.t==='koz';return u<2&&((isK&&(me.kozLeft??2)>0)||(!isK&&(me.cezaLeft??3)>0));});
+  if(!avail.length)return;
+  const hand=G._botHands?.[pid]||[];const hi=hand.filter(c=>RV[c.r]>=12).length;
+  let chosen;
+  if(hi>=4&&me.kozLeft>0){const kozs=avail.filter(g=>g.t==='koz');if(kozs.length){const cnt={};SUITS.forEach(s=>cnt[s]=hand.filter(c=>c.s===s).length);kozs.sort((a,b)=>(cnt[b.s]||0)-(cnt[a.s]||0));chosen=kozs[0];}}
+  if(!chosen)chosen=avail[0|Math.random()*avail.length];
+  hostGT({gt:chosen.id,from:pid});
+}
+function botPlay(pid){
+  const hand=G._botHands?.[pid];if(!hand?.length)return;
+  const playable=hand.filter(c=>canPlay(c,hand));if(!playable.length)return;
+  const def=GT.find(g=>g.id===G.gt);let chosen;
+  if(def?.t==='koz'){const kozCards=playable.filter(c=>c.s===def.s);const maxP=Math.max(0,...Object.values(G.trick).filter(c=>c.s===def.s).map(c=>RV[c.r]||0));const wk=kozCards.filter(c=>(RV[c.r]||0)>maxP).sort((a,b)=>RV[a.r]-RV[b.r]);chosen=wk[0]||playable.sort((a,b)=>RV[a.r]-RV[b.r])[0];}
+  else{const led=playable.filter(c=>c.s===G.ledSuit);if(led.length){const maxP=Math.max(0,...Object.values(G.trick).filter(c=>c.s===G.ledSuit).map(c=>RV[c.r]||0));const los=led.filter(c=>(RV[c.r]||0)<maxP).sort((a,b)=>RV[b.r]-RV[a.r]);chosen=los[0]||led.sort((a,b)=>RV[a.r]-RV[b.r])[0];}else chosen=playable.sort((a,b)=>RV[b.r]-RV[a.r])[0];}
+  hostPlay({card:chosen||playable[0],from:pid});
+}
 $('icode').addEventListener('input',e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'');});
 </script>
 </body>
